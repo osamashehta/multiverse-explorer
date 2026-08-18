@@ -32,10 +32,6 @@ const CharacterCard = ({ character }: CharacterCardProps) => {
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
 
-        <div className="absolute right-2 top-2">
-          <StatusBadge status={character.status} showLabel={false} />
-        </div>
-
         <div className="absolute bottom-2 left-2">
           <span className="rounded-sm bg-bg/80 px-1.5 py-0.5 font-mono text-[10px] text-text-muted">
             #{String(character.id).padStart(3, "0")}

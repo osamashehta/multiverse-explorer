@@ -7,20 +7,20 @@ export default function Header() {
       <Container className="flex min-h-16 items-center justify-between">
         <Link
           href="/"
-          className="group flex items-center gap-3"
+          className="flex min-w-0 items-center gap-2 sm:gap-3"
           aria-label="Multiverse Explorer home"
         >
-          <span className="flex size-3 rounded-full bg-portal shadow-[0_0_12px_var(--color-portal)]" />
+          <span className="size-2.5 shrink-0 rounded-full bg-portal shadow-[0_0_12px_var(--color-portal)] sm:size-3" />
 
-          <span className="font-display text-xl font-semibold tracking-wide text-text transition-colors group-hover:text-portal">
+          <span className="truncate  font-display text-sm font-semibold tracking-wide text-text transition-colors hover:text-portal sm:text-base lg:text-xl">
             Multiverse Explorer
           </span>
         </Link>
 
-        <nav aria-label="Main navigation">
+        <nav className="shrink-0" aria-label="Main navigation">
           <Link
             href="/"
-            className="font-body text-sm font-medium text-text-dim transition-colors hover:text-portal"
+            className="whitespace-nowrap font-body text-xs font-medium text-text-dim transition-colors hover:text-portal sm:text-sm"
           >
             Character Dashboard
           </Link>

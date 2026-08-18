@@ -1,8 +1,10 @@
-const ArrowRightIcon = () => {
+import { cn } from "@/lib/utils/cn";
+
+const ArrowRightIcon = ({ rotate = false }) => {
   return (
     <svg
       aria-hidden="true"
-      className="size-3 shrink-0"
+      className={cn("size-3 shrink-0", { "rotate-180": rotate })}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
