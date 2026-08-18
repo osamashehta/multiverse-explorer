@@ -16,5 +16,5 @@ export async function apiFetch<T>(
     throw new Error(`API request failed: ${response.status}`);
   }
 
-  return response.json();
+  return (await response.json()) as T;
 }
