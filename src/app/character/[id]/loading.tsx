@@ -32,6 +32,21 @@ export default function CharacterLoading() {
             </div>
           </div>
         </section>
+
+        <section className="mt-6 overflow-hidden rounded-sm border border-border bg-surface sm:mt-8">
+          <div className="border-b border-border px-5 py-4 sm:px-8">
+            <div className="h-3 w-32 rounded-sm bg-text-muted/20" />
+            <div className="mt-2 h-7 w-28 rounded-sm bg-text-muted/20" />
+          </div>
+          <div className="grid gap-px bg-border sm:grid-cols-2">
+            {Array.from({ length: 6 }, (_, index) => (
+              <div key={index} className="h-24 animate-pulse bg-surface p-5">
+                <div className="h-3 w-14 rounded-sm bg-text-muted/20" />
+                <div className="mt-3 h-5 w-2/3 rounded-sm bg-text-muted/20" />
+              </div>
+            ))}
+          </div>
+        </section>
       </Container>
     </main>
   );
