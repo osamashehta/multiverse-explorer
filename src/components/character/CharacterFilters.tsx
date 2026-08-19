@@ -30,6 +30,26 @@ const fieldClass = cn(
   "focus:border-portal focus:outline-none focus:ring-1 focus:ring-portal/30",
 );
 
+export function buildCharacterFilterUrl({
+  name = "",
+  status = "",
+  species = "",
+}: {
+  name?: string;
+  status?: string;
+  species?: string;
+}) {
+  const params = new URLSearchParams();
+
+  if (name.trim()) params.set("name", name.trim());
+  if (status) params.set("status", status);
+  if (species) params.set("species", species);
+
+  const query = params.toString();
+
+  return query ? `/?${query}` : "/";
+}
+
 export default function CharacterFilters({
   name,
   status,
@@ -43,15 +63,11 @@ export default function CharacterFilters({
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const params = new URLSearchParams();
-
-    if (nameValue.trim()) params.set("name", nameValue.trim());
-    if (statusValue) params.set("status", statusValue);
-    if (speciesValue) params.set("species", speciesValue);
-
-    const query = params.toString();
-
-    router.push(query ? `/?${query}` : "/");
+    router.push(buildCharacterFilterUrl({
+      name: nameValue,
+      status: statusValue,
+      species: speciesValue,
+    }));
   }
 
   function handleClear() {

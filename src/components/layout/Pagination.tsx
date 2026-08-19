@@ -2,15 +2,9 @@ import Link from "next/link";
 import type { CharacterPageInfo } from "@/types/character";
 import ArrowRightIcon from "../ui/Icons/ArrowRightIcon";
 
-type SearchParams = Record<string, string | string[] | undefined>;
+export type SearchParams = Record<string, string | string[] | undefined>;
 
-interface PaginationProps {
-  info: CharacterPageInfo;
-  currentPage: number;
-  searchParams: SearchParams;
-}
-
-function handlePagination(searchParams: SearchParams, page: number) {
+export function handlePagination(searchParams: SearchParams, page: number) {
   const params = new URLSearchParams();
 
   Object.entries(searchParams).forEach(([key, value]) => {
@@ -30,6 +24,12 @@ function handlePagination(searchParams: SearchParams, page: number) {
   const query = params.toString();
 
   return query ? `/?${query}` : "/";
+}
+
+interface PaginationProps {
+  info: CharacterPageInfo;
+  currentPage: number;
+  searchParams: SearchParams;
 }
 
 const controlClass =
