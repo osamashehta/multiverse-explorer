@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import CharacterCard from "@/components/character/CharacterCard";
 import CharacterEmptyState from "@/components/character/CharacterEmptyState";
 import CharacterFilters from "@/components/character/CharacterFilters";
@@ -15,6 +16,11 @@ type HomeProps = {
   searchParams: Promise<SearchParams>;
 };
 
+export const metadata: Metadata = {
+  title: "Explore the Multiverse",
+  description:
+    "Discover Rick and Morty characters, their origins, statuses, and episode appearances.",
+};
 function getPage(value?: string) {
   const page = Number(value ?? 1);
 
@@ -102,7 +108,14 @@ export default async function Home({ searchParams }: HomeProps) {
   const species = getParam(params, "species");
 
   return (
-    <>
+    <main>
+      <section className="pt-4">
+        <Container className="flex justify-center items-center">
+          <h1 className="mt-3 font-display text-1xl font-semibold tracking-wide text-text  border-b-portal-dim border-b pb-2 w-fit sm:text-2xl">
+            Explore the Multiverse
+          </h1>
+        </Container>
+      </section>
       <CharacterFilters
         key={`${name}-${status}-${species}`}
         name={name}
@@ -118,6 +131,6 @@ export default async function Home({ searchParams }: HomeProps) {
           searchParams={params}
         />
       </Suspense>
-    </>
+    </main>
   );
 }

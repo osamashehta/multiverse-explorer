@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactQueryProvider } from "@/lib/ReactQueryProvider";
@@ -16,8 +16,51 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Multiverse Explorer",
-  description: "Explore Rick and Morty characters and their episodes.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  ),
+  title: {
+    default: "Multiverse Explorer",
+    template: "%s | Multiverse Explorer",
+  },
+  description:
+    "Explore Rick and Morty characters, their origins, statuses, and episode appearances.",
+  applicationName: "Multiverse Explorer",
+  keywords: [
+    "Rick and Morty",
+    "characters",
+    "episodes",
+    "multiverse explorer",
+  ],
+  authors: [{ name: "Multiverse Explorer" }],
+  creator: "Multiverse Explorer",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    siteName: "Multiverse Explorer",
+    title: "Multiverse Explorer",
+    description:
+      "Explore Rick and Morty characters, their origins, statuses, and episode appearances.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Multiverse Explorer",
+    description:
+      "Explore Rick and Morty characters, their origins, statuses, and episode appearances.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#07090f",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

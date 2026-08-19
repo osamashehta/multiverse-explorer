@@ -3,6 +3,7 @@ import CharacterErrorState from "@/components/character/CharacterErrorState";
 import CharacterProfileCard from "@/components/character/CharacterProfileCard";
 import EpisodeList from "@/components/episode/EpisodeList";
 import Container from "@/components/ui/Container";
+import type { Metadata } from "next";
 import { apiFetch } from "@/lib/api/client";
 import { getEpisodes } from "@/lib/api/episodes";
 import { getQueryClient } from "@/lib/ReactQueryProvider/get-query-client";
@@ -12,6 +13,56 @@ import type { Episode } from "@/types/episode";
 type CharacterPageProps = {
   params: Promise<{ id: string }>;
 };
+
+export async function generateMetadata({
+  params,
+}: CharacterPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const characterId = Number(id);
+
+  if (!Number.isInteger(characterId) || characterId < 1) {
+    return {
+      title: "Character Not Found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  try {
+    const character = await apiFetch<Character>(`/character/${characterId}`);
+
+    return {
+      title: character.name,
+      description: `Explore ${character.name}'s status, species, origin, location, and episode appearances.`,
+      alternates: {
+        canonical: `/character/${character.id}`,
+      },
+      openGraph: {
+        type: "profile",
+        title: `${character.name} | Multiverse Explorer`,
+        description: `Explore ${character.name}'s character profile and episode appearances.`,
+        images: [
+          {
+            url: character.image,
+            width: 300,
+            height: 300,
+            alt: character.name,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${character.name} | Multiverse Explorer`,
+        description: `Explore ${character.name}'s character profile and episode appearances.`,
+        images: [character.image],
+      },
+    };
+  } catch {
+    return {
+      title: "Character Not Found",
+      robots: { index: false, follow: false },
+    };
+  }
+}
 
 export default async function CharacterPage({ params }: CharacterPageProps) {
   const { id } = await params;
