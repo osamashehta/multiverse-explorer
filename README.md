@@ -155,6 +155,7 @@ src/
   components/
     character/
       CharacterCard.tsx
+      CharacterFilters.test.tsx
       CharacterEmptyState.tsx
       CharacterErrorState.tsx
       CharacterFilters.tsx
@@ -164,6 +165,7 @@ src/
       EpisodeList.tsx
     layout/
       Header.tsx
+      Pagination.test.tsx
       Pagination.tsx
     ui/
       Breadcrumb.tsx
@@ -176,7 +178,6 @@ src/
     ReactQueryProvider/
       get-query-client.ts
       index.tsx
-    url-navigation.test.ts
     utils/
       cn.ts
   types/
@@ -188,10 +189,8 @@ src/
 
 Vitest covers the highest-value URL behavior:
 
-- Empty filter values are excluded.
-- Filter values are trimmed and encoded.
-- Pagination preserves active filters.
-- Page one removes the page parameter.
+- `CharacterFilters.test.tsx` verifies empty filters are excluded and names are trimmed and encoded.
+- `Pagination.test.tsx` verifies active filters are preserved and page one removes the page parameter.
 
 Run the tests with:
 
@@ -199,11 +198,11 @@ Run the tests with:
 npm run test
 ```
 
-The test suite currently focuses on pure URL behavior because it is the central state-management logic. Component tests can be added later for the status badge and filter UI without changing the data architecture.
+The tests are colocated with the components they cover and focus on pure URL navigation behavior.
 
-## Trade-offs and Known Limitations
+## Technical Decisions
 
-- REST was implemented instead of GraphQL to keep the core solution focused and stable.
+
 - Pagination uses server navigation rather than client-side infinite scrolling because the API already exposes page metadata and the URL state is shareable.
 - The species dropdown contains a curated set of common API values instead of dynamically loading every possible species.
 - Episode data is fetched in a batch request to avoid one uncontrolled request per episode.
